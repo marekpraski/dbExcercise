@@ -6,8 +6,16 @@ public class ResultPrinter {
     public ResultPrinter(List<List<String>> queryResult) {
         this.queryResult = queryResult;
     }
+    public ResultPrinter() {}
 
     public void printQueryResult() {
+        for (List<String> row : queryResult) {
+            printRow(row);
+            System.out.println();
+        }
+    }
+
+    public void printQueryResult(List<List<String>> queryResult) {
         for (List<String> row : queryResult) {
             printRow(row);
             System.out.println();
