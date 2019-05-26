@@ -9,14 +9,14 @@ public class DBReader {
     public DBReader(String url) {
         try {
             //initialize sqlite driver
-            Class.forName("org.sqlite.JDBC");
+            Class.forName(ConnectionParameters.FORNAME.getParameter());
             //can establish connection with db only now, after the driver is initialized
             connection = DriverManager.getConnection(url);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-
     }
+
     public List<List<String>> getQueryResult (String sqlQuery) {
         List<List<String>> queryResult = new ArrayList();
         ResultSet resultSet=null;
@@ -44,6 +44,18 @@ public class DBReader {
         return queryResult;
     }
 
+    /**
+     * returns the first item of the result set
+     * meant to be used when the result set is known to contain only one item
+     * @param sqlQuery
+     * @return
+     */
+    public String getSingleQueryResult (String sqlQuery) {
+        List<List<String>> queryResult = getQueryResult(sqlQuery);
+        List<String> row = queryResult.get(0);
+        return row.get(0);
+    }
+
     public List<List<String>> getQueryResultAndLabels (String sqlQuery) {
         List<List<String>> queryResult = new ArrayList();
         ResultSet resultSet=null;
@@ -69,6 +81,16 @@ public class DBReader {
         }
 
         return queryResult;
+    }
+    public School getSchool(int id) {
+        String sqlQuery = "select * from schools where id ="+id;
+        List<List<String>> queryResult = getQueryResult(sqlQuery);
+        List<String> row = queryResult.get(0);
+        School school = new School();
+        school.setId(id);
+        school.setName(row.get(1));
+        school.setAddress(row.get(2));
+        return school;
     }
 
 }
