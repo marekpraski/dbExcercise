@@ -1,5 +1,8 @@
+package hibernate;
+
 import java.util.List;
 
+import dbmodel.School;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 

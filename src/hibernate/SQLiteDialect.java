@@ -1,4 +1,4 @@
-
+package hibernate;
 /*
  * The author disclaims copyright to this source code. In place of
  * a legal notice, here is a blessing:
@@ -144,19 +144,19 @@ public class SQLiteDialect extends Dialect {
 
 	public String getDropForeignKeyString() {
 		throw new UnsupportedOperationException(
-				"No drop foreign key syntax supported by SQLiteDialect");
+				"No drop foreign key syntax supported by hibernate.SQLiteDialect");
 	}
 
 	public String getAddForeignKeyConstraintString(String constraintName,
 			String[] foreignKey, String referencedTable, String[] primaryKey,
 			boolean referencesPrimaryKey) {
 		throw new UnsupportedOperationException(
-				"No add foreign key syntax supported by SQLiteDialect");
+				"No add foreign key syntax supported by hibernate.SQLiteDialect");
 	}
 
 	public String getAddPrimaryKeyConstraintString(String constraintName) {
 		throw new UnsupportedOperationException(
-				"No add primary key syntax supported by SQLiteDialect");
+				"No add primary key syntax supported by hibernate.SQLiteDialect");
 	}
 
 	public boolean supportsIfExistsBeforeTableName() {

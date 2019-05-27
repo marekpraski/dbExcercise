@@ -1,3 +1,8 @@
+package dboperator;
+
+import dbmodel.School;
+import dboperator.DBReader;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -7,7 +12,7 @@ public class DBWriter {
     private Connection connection;
     private Statement statement;
 
-    DBWriter(String url) {
+    public DBWriter(String url) {
         try {
             Class.forName(ConnectionParameters.FORNAME.getParameter());
             connection = DriverManager.getConnection(url);
@@ -25,16 +30,22 @@ public class DBWriter {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
-    private int getMaxID(String tableName, String Id) {
-        DBReader reader = new DBReader(ConnectionParameters.URL.getParameter());
+
+    /**
+     *
+     * @param reader
+     * @param tableName name of the table to read from
+     * @param Id name of the id field in the table
+     * @return
+     */
+    private int getMaxID(DBReader reader, String tableName, String Id) {
         String query = "select max(" + Id +") "+"from "+tableName;
         return Integer.parseInt(reader.getSingleQueryResult(query));
     }
 
     public void insert(School school) {
-        int id = getMaxID("schools", "id")+1;
+        int id = getMaxID(new DBReader(connection),"schools", "id")+1;
         String name = school.getName();
         String address = school.getAddress();
         String sqlStatement = "insert into schools values(" + id + " ,'" + name + "', '" + address + "')";

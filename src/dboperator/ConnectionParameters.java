@@ -1,5 +1,8 @@
+package dboperator;
+
 public enum ConnectionParameters {
     URL("jdbc:sqlite:school.db"),
+    URLTESTDB("jdbc:sqlite:school_test.db"),
     FORNAME("org.sqlite.JDBC"),
     LOGIN(""),
     PASSWORD("");

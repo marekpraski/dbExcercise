@@ -1,3 +1,5 @@
+package dbmodel;
+
 import java.util.Set;
 
 public class SchoolClass implements java.io.Serializable {

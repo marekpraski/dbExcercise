@@ -1,3 +1,7 @@
+package dboperator;
+
+import dbmodel.School;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +19,9 @@ public class DBReader {
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
+    }
+    public DBReader(Connection connection) {
+            this.connection=connection;
     }
 
     public List<List<String>> getQueryResult (String sqlQuery) {

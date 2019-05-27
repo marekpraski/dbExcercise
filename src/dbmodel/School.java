@@ -1,3 +1,5 @@
+package dbmodel;
+
 @SuppressWarnings("serial")
 public class School implements java.io.Serializable {
 
@@ -30,7 +32,7 @@ public class School implements java.io.Serializable {
 	}
 	
 	public String toString() {
-		return "School: " + getName() + " (" + getAddress() + ")";
+		return "dbmodel.School: " + getName() + " (" + getAddress() + ")";
 }
 
 }

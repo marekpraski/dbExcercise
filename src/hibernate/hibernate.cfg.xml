@@ -6,12 +6,12 @@
 	<session-factory>
 		<property name="show_sql">true</property>
 		<property name="format_sql">true</property>
-		<property name="dialect">SQLiteDialect</property>
+		<property name="dialect">hibernate.SQLiteDialect</property>
 		<property name="connection.driver_class">org.sqlite.JDBC</property>
 		<property name="connection.url">jdbc:sqlite:school.db</property>
 		<property name="connection.username"></property>
 		<property name="connection.password"></property>
 	
-		<mapping resource="School.hbm.xml"/>
+		<mapping resource="dbmodel.School.hbm.xml"/>
 	</session-factory>
 </hibernate-configuration>
