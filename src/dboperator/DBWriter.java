@@ -1,7 +1,7 @@
 package dboperator;
 
 import dbmodel.School;
-import dboperator.DBReader;
+import dbmodel.SchoolClass;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -33,28 +33,50 @@ public class DBWriter {
     }
 
     /**
-     *
-     * @param reader
      * @param tableName name of the table to read from
-     * @param Id name of the id field in the table
+     * @param Id        name of the id field in the table
      * @return
      */
-    private int getMaxID(DBReader reader, String tableName, String Id) {
-        String query = "select max(" + Id +") "+"from "+tableName;
+    private int getMaxID(String tableName, String Id) {
+        DBReader reader = new DBReader(connection);
+        String query = "select max(" + Id + ") " + "from " + tableName;
         return Integer.parseInt(reader.getSingleQueryResult(query));
     }
 
-    public void insert(School school) {
-        int id = getMaxID(new DBReader(connection),"schools", "id")+1;
+    public void insertSchool(School school) {
+        //new insertSchool must have a unique primary key id
+        //the parameters' names, ie. id, name and address MUST correspond to the labels in the appropriate db table
+        long id = getMaxID("schools", "id") + 1;
         String name = school.getName();
         String address = school.getAddress();
-        String sqlStatement = "insert into schools values(" + id + " ,'" + name + "', '" + address + "')";
-        try {
-            statement = connection.createStatement();
-            statement.executeUpdate(sqlStatement);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        String sqlQuery = "insert into schools values(" + id + " ,'" + name + "', '" + address + "')";
+        executeStatement(sqlQuery);
+    }
 
+    public void deleteSchool(School school) {
+        long id = school.getId();
+        String sqlQuery = "delete from schools where id=" + id;
+        executeStatement(sqlQuery);
+    }
+
+    public void updateSchool(School school) {
+        long id = school.getId();
+        String name = school.getName();
+        String address = school.getAddress();
+        String sqlQuery = "update schools set name='" + name + "', address='" + address + "' where id=" + id;
+        executeStatement(sqlQuery);
+    }
+
+    public void insertSchoolClass(SchoolClass schoolClass, School school) {
+        //new insertSchool must have a unique primary key id
+        //the parameters' names, ie. id, name and address MUST correspond to the labels in the appropriate db table
+        long id = getMaxID("schoolClasses", "id") + 1;
+        long school_id = school.getId();
+        String profile = schoolClass.getProfile();
+        int currentYear = schoolClass.getCurrentYear();
+        int startYear = schoolClass.getStartYear();
+        String sqlQuery = "insert into schoolClasses(id,school_id,profile,startYear,CurrentYear) values" +
+                "(" + id + "," + school_id+", '" + profile + "', " + startYear + ","+currentYear+")";
+        executeStatement(sqlQuery);
     }
 }
