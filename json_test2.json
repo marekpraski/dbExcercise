@@ -1,0 +1,9 @@
+{"menu": {
+  "id": "file",
+  "value": "File",
+  "popup": {
+    "value1": "New",
+    "value2": "Open",
+    "value3": "Close"
+  }
+}}

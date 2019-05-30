@@ -24,7 +24,7 @@ public class DBWriterTest {
         printResults(sqlQuery); //before insertSchool
 
         dboperator.DBWriter dbWriter = new dboperator.DBWriter(ConnectionParameters.URLTESTDB.getParameter());
-        String insert = "insertSchool into schools values(5,'new school','some address')";
+        String insert = "insert into schools values(5,'new school','some address')";
         dbWriter.executeStatement(insert);
 
         printResults(sqlQuery); //after insertSchool
@@ -39,7 +39,7 @@ public class DBWriterTest {
         printResults(sqlQuery); //before updateSchool
 
         dboperator.DBWriter dbWriter = new dboperator.DBWriter(ConnectionParameters.URLTESTDB.getParameter());
-        String update = "updateSchool schools set name = 'updated name' where id=8";
+        String update = "update schools set name = 'updated name' where id=8";
         dbWriter.executeStatement(update);
 
         printResults(sqlQuery); //after updateSchool
@@ -54,7 +54,7 @@ public class DBWriterTest {
         printResults(sqlQuery); //before deleteSchool
 
         dboperator.DBWriter dbWriter = new dboperator.DBWriter(ConnectionParameters.URLTESTDB.getParameter());
-        String delete = "delete from schools where id in(7,8,9,10,11)";
+        String delete = "delete from schools where id in(4,5,6)";
         dbWriter.executeStatement(delete);
 
         printResults(sqlQuery); //after deleteSchool
@@ -126,6 +126,34 @@ public class DBWriterTest {
         String sqlQuery = "insert into schoolClasses(id,school_id,profile,startYear,CurrentYear) values" +
                 "(" + id + "," + school_id+", '" + profile + "', " + startYear + ","+currentYear+")";
         System.out.println(sqlQuery);
+    }
+
+    @Test
+    public void schoolFromXmlTest() {
+        String sqlQuery = "Select * from schools";
+        printResults(sqlQuery); //before update School
+
+        XmlReader reader = new XmlReader();
+        School school= reader.readSchoolData("testSchoolData.xml");
+
+        dboperator.DBWriter writer = new dboperator.DBWriter(ConnectionParameters.URLTESTDB.getParameter());
+        writer.insertSchool(school);
+
+        printResults(sqlQuery); //after updateSchool
+    }
+
+    @Test
+    public void schoolFromJsonTest() {
+        String sqlQuery = "Select * from schools";
+        printResults(sqlQuery); //before update School
+
+        JsonReader reader = new JsonReader();
+        School school= reader.schoolFromJson("jsonSchool.json");
+
+        dboperator.DBWriter writer = new dboperator.DBWriter(ConnectionParameters.URLTESTDB.getParameter());
+        writer.insertSchool(school);
+
+        printResults(sqlQuery); //after updateSchool
     }
 
     // to run the test below change getMaxID to public

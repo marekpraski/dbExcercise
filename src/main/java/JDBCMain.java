@@ -1,5 +1,3 @@
-package main;
-
 import dbmodel.School;
 import dboperator.*;
 

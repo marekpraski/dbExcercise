@@ -1,0 +1,7 @@
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>This is a comment</comment>
+    <entry key="startYear">2010</entry>
+    <entry key="currentYear">5</entry>
+    <entry key="profile">chem-biol</entry>
+</properties>

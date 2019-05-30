@@ -16,7 +16,9 @@ public class DBReader {
             Class.forName(ConnectionParameters.FORNAME.getParameter());
             //can establish connection with db only now, after the driver is initialized
             connection = DriverManager.getConnection(url);
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

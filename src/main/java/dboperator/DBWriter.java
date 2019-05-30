@@ -12,9 +12,13 @@ public class DBWriter {
     private Connection connection;
     private Statement statement;
 
+    /**
+     *
+     * @param url
+     */
     public DBWriter(String url) {
         try {
-            Class.forName(ConnectionParameters.FORNAME.getParameter());
+            Class.forName(dboperator.ConnectionParameters.FORNAME.getParameter());
             connection = DriverManager.getConnection(url);
             statement = connection.createStatement();
         } catch (ClassNotFoundException e) {
